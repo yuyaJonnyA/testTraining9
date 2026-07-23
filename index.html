@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="yuJon のシンプルなホームページ" />
+    <title>yuJon | Home</title>
+    <style>
+      :root {
+        --ink: #18302b;
+        --muted: #61706c;
+        --paper: #fbfaf4;
+        --accent: #e8693a;
+        --leaf: #78ad70;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      }
+      main { max-width: 740px; margin: auto; padding: 24px 20px 52px; }
+      .hero {
+        min-height: 68vh;
+        display: grid;
+        align-content: center;
+        gap: 22px;
+        padding: 42px 4px;
+      }
+      .eyebrow { margin: 0; color: var(--accent); font-weight: 700; letter-spacing: .08em; }
+      h1 { margin: 0; font-size: clamp(3rem, 14vw, 6rem); line-height: .92; letter-spacing: -.06em; }
+      .lead { max-width: 31rem; margin: 0; color: var(--muted); font-size: 1.1rem; line-height: 1.8; }
+      .button {
+        width: fit-content;
+        padding: 14px 19px;
+        border-radius: 999px;
+        color: white;
+        background: var(--ink);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      section { padding: 30px 0; border-top: 1px solid #d8ddd6; }
+      h2 { margin: 0 0 15px; font-size: 1.35rem; }
+      .cards { display: grid; gap: 12px; }
+      .card { padding: 18px; border-radius: 18px; background: #e7f0df; }
+      .card:nth-child(2) { background: #fce9d9; }
+      .card strong { display: block; margin-bottom: 5px; }
+      .card p { margin: 0; color: var(--muted); line-height: 1.65; }
+      footer { padding-top: 16px; color: var(--muted); font-size: .85rem; }
+      @media (min-width: 560px) { .cards { grid-template-columns: 1fr 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">HELLO, WORLD.</p>
+        <h1>yuJon<br />のページ</h1>
+        <p class="lead">ここは、つくったものや気になることを少しずつ置いていく、小さなホームページです。</p>
+        <a class="button" href="#about">このページについて ↓</a>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+        <div class="cards">
+          <article class="card"><strong>つくる</strong><p>コードやデザインを、気軽に試していきます。</p></article>
+          <article class="card"><strong>のこす</strong><p>学んだことや作品を、この場所にまとめます。</p></article>
+        </div>
+      </section>
+
+      <footer>© 2026 yuJon</footer>
+    </main>
+  </body>
+</html>
