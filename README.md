@@ -1,67 +1,90 @@
-# Simple Homepage
+﻿# Portfolio Project: Responsive Landing Page + Spring Boot Contact API
 
-このリポジトリは、スマホにも対応したシンプルなホームページを公開するためのものです。
+このリポジトリは、Javaエンジニアの実務クオリティを意識したポートフォリオ向けプロジェクトです。
 
-## 概要
+## 何を示すか
 
-- `index.html` にシンプルでレスポンシブなホームページを配置
-- Gitで管理して、公開も簡単にできるようにしています
+- レスポンシブなランディングページ（LP）を GitHub Pages で公開
+- Java / Spring Boot で問い合わせバックエンドを構築
+- DB保存を伴う問い合わせフォーム処理
+- CIとして GitHub Actions を使ったビルド・公開フロー
+- VS Code で Java/Spring 開発ができるように構成
 
-## 公開方法
+## 技術スタック
 
-### 1. GitHub Pages を使う
+- フロントエンド: HTML / CSS / JavaScript
+- ホスティング: GitHub Pages
+- バックエンド: Spring Boot, Java 21
+- DB: H2（ローカル開発用）
+- CI: GitHub Actions
 
-1. このリポジトリをGitHubにプッシュします。
-2. GitHubのリポジトリ設定で、Pagesの公開ソースを GitHub Actions に設定します。
-3. 以下のようにコミットとプッシュを行います。
+## このリポジトリの構成
 
-```bash
-git add .
-git commit -m "Add simple responsive homepage"
-git push origin main
-```
+- `index.html` - レスポンシブなLPと問い合わせフォーム
+- `script.js` - フロントからバックエンドへ問い合わせをPOST
+- `backend/` - Spring Boot プロジェクト
+- `.github/workflows/` - GitHub Actions設定
+- `.vscode/extensions.json` - VS Code Java/Spring推奨拡張
 
-### 2. 自動デプロイ（GitHub Actions）
+## ローカルでの動かし方
 
-このリポジトリには、GitHub Actionsで静的ファイルをGitHub Pagesにデプロイするワークフローを追加しています。
-
-- プッシュ先ブランチ: `main` または `agents/simple-website-creation-git-integration`
-- 公開ファイル: ルートにある `index.html`
-
-ワークフローは、GitHub Actionsの `Pages` を使ってサイトを公開します。
-
-## ローカルで確認する
-
-ローカルでHTMLを確認するには、次のコマンドを使います。
+### 1. フロントエンドを動かす
 
 ```bash
 python -m http.server 8000
 ```
 
-ブラウザで `http://localhost:8000` を開くと、サイトをスマホ表示で確認できます。
+`http://localhost:8000` でサイトを確認します。
 
-## お問い合わせとバックエンド
+### 2. バックエンドを起動する
 
-- このサイトは静的なフロントエンドを GitHub Pages で公開しつつ、別途 Spring Boot バックエンドで問い合わせを受け取る構成にできます。
-- `backend/` には Spring Boot の問い合わせAPIプロジェクトがあります。
-- フロントエンドは `script.js` から `http://localhost:8080/api/contact` へ送信できます。
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-### フロントエンドの動作確認
+- API: `http://localhost:8080/api/contact`
+- H2 コンソール: `http://localhost:8080/h2-console`
 
-1. `python -m http.server 8000` で静的サイトを起動します。
-2. ブラウザで `http://localhost:8000` を開きます。
-3. 事前にバックエンドを起動しておくと、フォーム送信がバックエンドへ送信されます。
+### 3. 問い合わせフォームを確認する
 
-### バックエンドを起動する
+フロント画面からフォームを送信すると、バックエンドが受信して DB に保存します。
 
-1. `cd backend`
-2. `mvn spring-boot:run`
-3. ブラウザで `http://localhost:8080/h2-console` を開くと、問い合わせ内容のデータを確認できます。
+## バックエンド実装のポイント
 
-> もしバックエンドを別のサーバーにデプロイする場合は、`script.js` の `apiBaseUrl` を公開先URLに書き換えてください。
+- Spring Boot を使った REST API
+- `ContactRequest` で入力バリデーション
+- `ContactService` でビジネスロジックを分離
+- `ContactMessage` エンティティに保存
+- `RestExceptionHandler` でバリデーションエラーや例外を整形
+- `spring-boot-starter-actuator` による運用・監視準備
 
-### DBと本番構成
+## DBと本番構成
 
-- 現在は H2 データベースを `backend/contactdb` に保存します。
-- 本番では PostgreSQL や MySQL を使う場合、`src/main/resources/application.properties` の設定を変更してください。
-- GitHub Pages は静的ホスティングのため、バックエンドは別途クラウドにデプロイします。
+- ローカルでは H2 を使い、`backend/contactdb` に保存します。
+- 本番では PostgreSQL / MySQL などに切り替え可能です。
+- 本番運用時は `backend/src/main/resources/application.properties` の接続設定を書き換えます。
+
+## GitHub Pages公開
+
+このリポジトリには GitHub Actions で静的サイトを公開する設定があります。
+
+- `main` ブランチへのプッシュで公開ワークフローが動きます
+- フロントエンドは `index.html` を GitHub Pages で配信します
+
+## 目指せるポートフォリオ品質
+
+このプロジェクトは「ただのLP」ではなく、
+Javaバックエンドと連携した実務寄りの構成になっています。
+
+- 既存開発・保守運用の観点で、ログ・エラー処理・DB保存を持つ
+- 障害対応の入り口として、Actuator/例外ハンドラを実装
+- 28歳のJavaエンジニアとして自己紹介に使える土台
+
+必要であれば、次のステップとして
+- 本番DBの追加（PostgreSQL/MySQL）
+- バックエンドのクラウドデプロイ
+- 管理画面の追加
+- ユーザー認証やアクセス制御
+
+を加えて、さらに厚みを持たせられます。

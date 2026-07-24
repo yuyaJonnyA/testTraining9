@@ -1,4 +1,6 @@
-const apiBaseUrl = 'http://localhost:8080/api';
+const apiBaseUrl = window.location.hostname === 'localhost'
+  ? 'http://localhost:8080/api'
+  : 'https://api.example.com/api';
 const contactForm = document.getElementById('contact-form');
 const statusMessage = document.getElementById('form-status');
 

@@ -1,17 +1,45 @@
-# Spring Boot Backend
+﻿# Spring Boot Backend
 
-`backend/` には、このサイトの問い合わせAPIを提供する Spring Boot プロジェクトがあります。
+`backend/` は Spring Boot で実装した問い合わせ API です。
 
-## 実行方法
+## 仕組み
 
-1. Java 21 をインストールする
-2. Maven をインストールする
-3. `cd backend`
-4. `mvn spring-boot:run`
+- フロントエンドの問い合わせフォームは `script.js` から POST 送信します。
+- バックエンドは `ContactRequest` のバリデーションを行い、`ContactMessage` としてDBに保存します。
+- `RestExceptionHandler` がバリデーションエラーとサーバーエラーを JSON で返します。
+- `spring-boot-starter-actuator` により監視と運用の入り口を用意しています。
 
-APIは `http://localhost:8080/api/contact` で起動します。
+## 開発手順
 
-## データ保存
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-- デフォルトでは H2 データベースを `backend/contactdb` に作成します
-- 本番環境では `src/main/resources/application.properties` を編集して PostgreSQL や MySQL に切り替えできます
+## エンドポイント
+
+- POST `/api/contact`
+  - `name`, `email`, `message` を含む JSON を送信
+  - 正常時は 201 Created を返す
+- GET `/api/contact/messages`
+  - 登録済み問い合わせの一覧を取得
+- GET `/actuator/health`
+  - アプリケーションの稼働確認
+
+## DB と開発環境
+
+- デフォルトでは H2 を使用し、`backend/contactdb` に保存します。
+- H2 コンソールは `http://localhost:8080/h2-console` で確認できます。
+- 本番では PostgreSQL / MySQL に切り替え可能です。
+  - `src/main/resources/application.properties` の接続設定を変更してください。
+
+## VS Code での開発
+
+このリポジトリには `.vscode/extensions.json` があり、以下の拡張を推奨しています。
+
+- `redhat.java`
+- `vscjava.vscode-java-debug`
+- `vscjava.vscode-java-test`
+- `vscjava.vscode-maven`
+- `vscjava.vscode-spring-boot`
+- `GitHub.copilot`
