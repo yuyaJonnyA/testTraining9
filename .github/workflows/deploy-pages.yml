@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - agents/simple-website-creation-git-integration
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build deploy artifact
+        run: |
+          mkdir site
+          shopt -s dotglob
+          cp -r . site
+          rm -rf site/.github site/.git
+
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
