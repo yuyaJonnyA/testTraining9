@@ -18,6 +18,10 @@
 - DB: H2（ローカル開発用）
 - CI: GitHub Actions
 
+## ライブデモ
+
+- `https://yuyaJonnyA.github.io/testTraining9`
+
 ## このリポジトリの構成
 
 - `index.html` - レスポンシブなLPと問い合わせフォーム
