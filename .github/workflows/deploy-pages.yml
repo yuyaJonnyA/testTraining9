@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
+      - main
       - agents/simple-website-creation-git-integration
 
 jobs:
@@ -20,7 +21,7 @@ jobs:
           mkdir site
           shopt -s dotglob
           cp -r . site
-          rm -rf site/.github site/.git
+          rm -rf site/.github site/.git site/backend site/.vscode
 
       - name: Upload static files
         uses: actions/upload-pages-artifact@v1

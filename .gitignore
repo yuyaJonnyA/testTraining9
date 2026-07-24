@@ -1,0 +1,5 @@
+/backend/target/
+/backend/contactdb*
+/.idea/
+/.DS_Store
+*.log

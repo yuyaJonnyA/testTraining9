@@ -55,6 +55,14 @@
       .card:nth-child(3) { background: #f3f3ff; }
       .card strong { display: block; margin-bottom: 5px; }
       .card p { margin: 0; color: var(--muted); line-height: 1.65; }
+      .contact-form { display: grid; gap: 12px; max-width: 100%; }
+      .contact-form label { display: grid; gap: 8px; font-weight: 700; color: var(--ink); }
+      .contact-form input,
+      .contact-form textarea { width: 100%; padding: 12px 14px; border: 1px solid #d8ddd6; border-radius: 14px; background: white; color: var(--ink); font: inherit; }
+      .contact-form textarea { min-height: 140px; resize: vertical; }
+      .contact-form button { margin-top: 4px; }
+      .form-status { margin: 0; color: var(--ink); }
+      .form-status.error { color: #c04848; }
       .note { color: var(--muted); margin-top: 12px; }
       footer { padding-top: 16px; color: var(--muted); font-size: .85rem; }
       @media (min-width: 560px) { .cards { grid-template-columns: 1fr 1fr; } }
@@ -89,14 +97,27 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <div class="cards">
-          <article class="card"><strong>メールで問い合わせ</strong><p>スマホからメールで連絡したい場合は、以下のボタンを使えます。</p><a class="button" href="mailto:YOUR_EMAIL_HERE">メールを送る</a></article>
-          <article class="card"><strong>DB連携について</strong><p>GitHub Pagesでは直接データベースにはつながりません。問い合わせを受けるには外部フォームサービスやサーバーが必要です。</p></article>
-        </div>
-        <p class="note">本当に問い合わせを受けたい場合は、メールアドレスを `mailto:` に設定するか、フォームサービス／バックエンドを使ってください。</p>
+        <form id="contact-form" class="contact-form">
+          <label>
+            お名前
+            <input type="text" name="name" placeholder="名前を入力" required />
+          </label>
+          <label>
+            メールアドレス
+            <input type="email" name="email" placeholder="example@example.com" required />
+          </label>
+          <label>
+            お問い合わせ内容
+            <textarea name="message" placeholder="メッセージを入力" required></textarea>
+          </label>
+          <button class="button" type="submit">送信する</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+        <p class="note">このページは GitHub Pages の静的サイトとして公開しつつ、別途 Spring Boot バックエンドで問い合わせを受け取る構成にできます。</p>
       </section>
 
       <footer>© 2026 yuJon</footer>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
