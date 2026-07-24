@@ -58,6 +58,8 @@ python -m http.server 8000
 2. `mvn spring-boot:run`
 3. ブラウザで `http://localhost:8080/h2-console` を開くと、問い合わせ内容のデータを確認できます。
 
+> もしバックエンドを別のサーバーにデプロイする場合は、`script.js` の `apiBaseUrl` を公開先URLに書き換えてください。
+
 ### DBと本番構成
 
 - 現在は H2 データベースを `backend/contactdb` に保存します。
